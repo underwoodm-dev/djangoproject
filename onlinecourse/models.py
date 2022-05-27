@@ -101,10 +101,13 @@ class Enrollment(models.Model):
     # Has a grade point for each question
     # Has question content
     # Other fields and methods you would like to design
-#class Question(models.Model):
+class Question(models.Model):
     # Foreign key to lesson
     # question text
     # question grade/mark
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    question = models.CharField(max_length=500, default="question")
+    grade = models.FloatField(default=100.00)
 
     # <HINT> A sample model method to calculate if learner get the score of the question
     #def is_get_score(self, selected_ids):
@@ -122,8 +125,11 @@ class Enrollment(models.Model):
     # Choice content
     # Indicate if this choice of the question is a correct one or not
     # Other fields and methods you would like to design
-# class Choice(models.Model):
-
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    content = models.CharField(max_length=500, default="content")
+    status = models.BooleanField(default=False)
+    
 # <HINT> The submission model
 # One enrollment could have multiple submission
 # One submission could have multiple choices
