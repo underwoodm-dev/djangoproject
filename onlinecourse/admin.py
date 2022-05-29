@@ -9,7 +9,7 @@ class LessonInline(admin.StackedInline):
 
 class QuestionInline(admin.StackedInline):
     model = Question
-    extra = 5
+    extra = 15
 
 class ChoiceInline(admin.StackedInline):
     model = Choice
@@ -30,18 +30,19 @@ class LessonAdmin(admin.ModelAdmin):
 # <HINT> Register Question and Choice models here
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
-    list_display = ['courses', 'question', 'grade']
+    list_display = ['question', 'grade']
     list_filter = ['question']
     search_fields = ['courses', 'question']
 
 class ChoiceAdmin(admin.ModelAdmin):
-    inlines = [QuestionInline]
-    list_display = ['questions', 'content', 'status']
-    list_filter = ['content', 'status']
-    search_fields = ['status', 'content', 'questions']
+    list_display = ['content', 'is_correct']
+    list_filter = ['content',]
+    search_fields = ['is_correct', 'content',]
 
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Instructor)
 admin.site.register(Learner)
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(Choice, ChoiceAdmin)
